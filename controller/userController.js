@@ -1,4 +1,3 @@
-// const express = require('express');
 const bcrypt = require('bcryptjs');
 const multer = require('multer');
 const auth = require('jsonwebtoken');
@@ -18,7 +17,7 @@ exports.signup = (req, res, next) => {
                                         email: req.body.email,
                                         password: hash,
                                         phone: req.body.phone,
-                                        image: req.body.image,
+                                        image: req.file.filename,
                               })
 
                               newUser.save()
@@ -39,7 +38,35 @@ exports.signup = (req, res, next) => {
           })
 }
 
-exports.login = (req, res, next) => {
 
-}
+
+exports.login=(req, res,next)=> {
+          User.findOne({email:req.body.email}, function(err,user){
+             if (err) {
+              console.log(req.body.email);
+                 } 
+                 else if(user) {
+                   if(bcrypt.compareSync(req.body.password, user.password)) {
+             // user.generateAuthToken();
+              const token = auth.sign({id: user._id},process.env.TOKEN);
+              res.status(201).json({
+                token:token,
+                id: user._id,
+                name: user.name,
+               // last_name: user.last_name,
+                email: user.email,
+               // gender: user.gender,
+              image: user.image,
+                password: user.password});
+                }
+                else{res.json({status:"error", message: "Invalid email/password!!!", data:null});}
+            }
+            else{
+              console.log(err);
+            res.status(404).json({
+                error:"Invalid email/password!!!"
+            });
+            }
+           })
+          }
 
