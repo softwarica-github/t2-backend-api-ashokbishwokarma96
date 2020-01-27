@@ -1,9 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser')
 const dotenv = require('dotenv').config();
-const users = require('./route/userRoute');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
+
+const users = require('./route/userRoute');
+const products = require('./route/productRoute');
 
 const app = express();
 
@@ -25,6 +27,7 @@ app.get("/",(req,res,next)=>{
 })
 
 app.use("/users",users);
+app.use("/products",products);
 // app.use("/products",product);
 // app.use("/booking",booking);
 
