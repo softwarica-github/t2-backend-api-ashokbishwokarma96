@@ -18,7 +18,7 @@ route.route('/login')
 .post(userController.login);
 
 route.patch('/update/:_id',upload,userController.update);
-route.delete();
+route.delete('/delete/:_id',userController.delete);
 
 
 module.exports = route;
