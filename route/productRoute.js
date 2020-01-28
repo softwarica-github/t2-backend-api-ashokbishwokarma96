@@ -10,4 +10,8 @@ route.get("/",(req,res,next)=>{
 route.route('/product')
 .get(productController.products)
 .post(upload,productController.newProduct);
+
+route.patch('/update/:_id',upload,productController.update);
+
+route.delete('/delete/:_id',productController.delete);
 module.exports= route;

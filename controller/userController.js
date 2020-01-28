@@ -70,3 +70,31 @@ exports.login=(req, res,next)=> {
            })
           }
 
+          exports.update = (req, res, next) => {
+            uid = req.params._id;
+            console.log(uid)
+            //   console.log(uid);
+            User.update(
+              { _id: uid },
+              {
+                $set: {
+                  name: req.body.name,
+                  email: req.body.email,
+                  password: hash,
+                  phone: req.body.phone,
+                  image: req.file.filename,
+                }
+              }
+            )
+              .then(function (user) {
+                res.status(201).json({
+                  message: "User Details Updated Successfully"
+                });
+              })
+              .catch(function (e) {
+                res.status(422).json({
+                  message: "Unable to Update:" + e
+                });
+              });
+          }
+
