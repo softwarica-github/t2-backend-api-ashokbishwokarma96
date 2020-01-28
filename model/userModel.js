@@ -27,6 +27,10 @@ const userData = mongoose.Schema({
                     type: String,
                     default: 'user.jpg'
           },
+          admin:{
+                    type:Boolean,
+                    default:false
+          }
 })
 
 module.exports = mongoose.model('User', userData)
