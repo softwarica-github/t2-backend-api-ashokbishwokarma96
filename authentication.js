@@ -9,17 +9,16 @@ exports.verifyUser = (req, res, next) => {
         return next(err);
     }
     let token = authHeader.split(' ')[1];
-    console.log(token);
     let data;
     try {
         data = jwt.verify(token, process.env.TOKEN);
-        console.log(data)
     } catch (err) {
         throw new Error('No token! Please Login First.');
     }
-    User.findById(data._id)
+    User.findById(data.id)
         .then((user) => {
             req.user = user;
+            console.log(req.user.username);
             next();
         }).catch(err=>res.send(err))
 }

@@ -6,6 +6,7 @@ const morgan = require('morgan');
 
 const users = require('./route/userRoute');
 const products = require('./route/productRoute');
+const main = require('./route/mainRoute');
 const authentication = require('./authentication')
 
 const app = express();
@@ -28,6 +29,7 @@ app.get("/",(req,res,next)=>{
 })
 
 app.use("/users",users);
+app.use("/a",main);
 app.use("/products",authentication.verifyUser,authentication.verifyAdmin,products);
 
 // app.use("/products",product);
