@@ -30,6 +30,7 @@ exports.update = (req, res, next) => {
           uid = req.params._id;
           console.log(uid)
           //   console.log(uid);
+
           Product.update(
             { _id: uid },
             {
@@ -43,6 +44,7 @@ exports.update = (req, res, next) => {
           productQuantity: req.body.productQuantity,
           productDescription: req.body.productDescription,
           productMadeDate: req.body.productMadeDate,
+
               }
             }
           )
@@ -53,18 +55,23 @@ exports.update = (req, res, next) => {
             })
             .catch(function (e) {
               res.status(422).json({
+
                 message: "Unable to Update:" + e
+
               });
             });
         }
       
         
         exports.delete=(req, res,next) => {
+
           Product.findById(req.params._id).then(user => {
+
                 user
               .delete()
               .then(function(result) {
                 res.status(201).json({
+
                   message: "Product Deleted Successfully"
                 });
               })
