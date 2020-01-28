@@ -17,4 +17,8 @@ route.route('/login')
 .get((req,res,next)=>{res.send("Login PAGE")})
 .post(userController.login);
 
+route.patch('/update/:_id',upload,userController.update);
+route.delete();
+
+
 module.exports = route;

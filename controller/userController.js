@@ -80,7 +80,7 @@ exports.login=(req, res,next)=> {
                 $set: {
                   name: req.body.name,
                   email: req.body.email,
-                  password: hash,
+                  //password: hash,
                   phone: req.body.phone,
                   image: req.file.filename,
                 }
@@ -96,5 +96,20 @@ exports.login=(req, res,next)=> {
                   message: "Unable to Update:" + e
                 });
               });
+          }
+
+          exports.delete=(req, res,next) => {
+            User.findById(req.params._id).then(user => {
+                  user
+                .delete()
+                .then(function(result) {
+                  res.status(201).json({
+                    message: "user Deleted Successfully"
+                  });
+                })
+                .catch(function(e) {
+                  console.log(e);
+                });
+            });
           }
 
