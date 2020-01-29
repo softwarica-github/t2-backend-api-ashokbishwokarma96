@@ -15,10 +15,7 @@ const userData = mongoose.Schema({
                     reqired: true,
                     unique: true
           },
-          // Dob: {
-          //           type: Date,
-          //           reqired: true,
-          // },
+
           password: {
                     type: String,
                     reqired: true

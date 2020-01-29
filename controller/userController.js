@@ -17,7 +17,7 @@ exports.signup = (req, res, next) => {
                                         email: req.body.email,
                                         password: hash,
                                         phone: req.body.phone,
-                                        image: req.file.filename,
+                                        image: req.body.images,
                               })
 
                               newUser.save()

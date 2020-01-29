@@ -11,7 +11,7 @@ route.get("/",(req,res)=>{
 route.route('/signup')
 .get((req,res,next)=>{
           res.send("SIGNUP PAGE")
-}).post(upload,userController.signup);
+}).post(userController.signup);
 
 //Route for User Login
 route.route('/login')

@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const dotenv = require('dotenv').config();
 const mongoose = require('mongoose');
 const morgan = require('morgan');
+const uploads=require('./controller/upload');
 
 const users = require('./route/userRoute');
 const products = require('./route/productRoute');
@@ -27,9 +28,11 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.get("/",(req,res,next)=>{
           res.send("This is home page.")
 })
-
+app.use("/upload",uploads,(req,res)=>{
+res.json(req.file);
+})
 app.use("/users",users);
-app.use("/a",main);
+app.use("/",main);
 app.use("/products",authentication.verifyUser,authentication.verifyAdmin,products);
 
 // app.use("/products",product);
