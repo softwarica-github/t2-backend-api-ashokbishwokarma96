@@ -22,7 +22,8 @@ const userData = mongoose.Schema({
           },
           image: {
                     type: String,
-                    default: 'user.jpg'
+                    default:"noimage.jpg"
+                    
           },
           admin:{
                     type:Boolean,

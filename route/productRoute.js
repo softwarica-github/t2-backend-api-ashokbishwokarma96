@@ -3,15 +3,15 @@ const productController = require('../controller/productController');
 const route = express.Router();
 
 const upload = require('../controller/uploadController');
-route.get("/",(req,res,next)=>{
-          res.send("Products route")
-})
 
-route.route('/product')
-.get(productController.products)
-.post(upload,productController.newProduct);
 
-route.patch('/update/:_id',upload,productController.update);
+route.route('/')
+.post(upload,productController.newProduct)
+.get(productController.products);
 
-route.delete('/delete/:_id',productController.delete);
+route.route('/:_id')
+.patch(upload,productController.update)
+.delete(productController.delete)
+.get(productController.product)
+
 module.exports= route;

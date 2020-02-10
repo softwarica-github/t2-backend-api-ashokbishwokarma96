@@ -1,17 +1,25 @@
 const mongoose = require('mongoose');
 
 const addToCartSchema = new mongoose.Schema({
-          userId: {
+          userEmail: {
                     type: String,
-                    required:true
+                    reqired: true,
           },
-          productId: {
+          productImage: {
                     type: String,
-                    required:true
+                    required: false
+          },
+          productName: {
+                    type: String,
+                    required: true
+          },
+          productPrice: {
+                    type: Number,
+                    required: true
           },
           quantity: {
                     type: Number,
                     required:true
-          }
+          }    
 })
 module.exports= mongoose.model("Add to Cart",addToCartSchema);

@@ -1,28 +1,31 @@
 const express = require('express');
 const userController = require('../controller/userController')
 const route = express.Router();
+const auth = require("../authentication")
 
 const upload = require('../controller/uploadController');
-route.get("/",(req,res)=>{
-          res.send("Users route")
-})
+
+route.get('/',userController.allusers)
 
 // Route for User Signup
-route.route('/signup')
-.get((req,res,next)=>{
-          res.send("SIGNUP PAGE")
-}).post(userController.signup);
+route.route('/signups')
+.post(upload,userController.signups);
 
-//Route for User Login
+route.route('/signup')
+.post(userController.signup);
+
+// route.post('/upload',upload);
+
+/*Route for User Login*/
 route.route('/login')
-.get((req,res,next)=>{res.send("Login PAGE")})
 .post(userController.login);
 
-//Route for User Update
-route.patch('/update/:_id',upload,userController.update);
+route.get("/me",auth.verifyUser,userController.me)
 
-//Route for User Delete
-route.delete('/delete/:_id',userController.delete);
+//Route for User Update
+route.route('/:_id')
+.patch(upload,userController.update)
+.delete(userController.delete)
 
 //Exporting main route of user
 module.exports = route;

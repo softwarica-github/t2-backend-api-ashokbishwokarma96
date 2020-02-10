@@ -1,19 +1,43 @@
 const AddToCart = require('../model/addToCartModel');
 
-exports.cartProduct = (req, res, next) => {
-          console.log("ASKOH DAI")
+exports.addToCart = (req, res, next) => {
+          console.log(req.user.email)
+          console.log(req.body)
           const add = new AddToCart({
-                    userId: req.user._id,
-                    productId: req.body.productId,
+                    userEmail: req.user.email,
+                    productImage: req.body.productImage,
+                    productName: req.body.productName,
+                    productPrice: req.body.productPrice,
                     quantity: req.body.quantity
-
           })
-          add.save().then(res.status(201).send("Product added"))
+          add.save().then(response=>res.status(201).send("Product added"))
                     .catch(err => res.send("Err" + err))
 }
 
 exports.viewCart = (req, res, next) => {
           AddToCart.find().then(cartProduct => {
-                    res.send(cartProductnp)
+                    res.send({message:"cartProductnp",cartProduct})
           }).catch(err => res.send(err))
 }
+exports.viewMyCart = (req, res, next) => {
+         
+          AddToCart.find({userEmail: req.user.email}).then(cartProduct => {
+                    console.log(cartProduct);
+                    res.send(cartProduct)
+          }).catch(err => res.send(err))
+}
+
+exports.deleteCart=(req, res,next) => {
+          AddToCart.findById(req.params._id).then(cartProduct => {
+                cartProduct
+              .delete()
+              .then(function(result) {
+                res.status(201).json({
+                  message: "Product Deleted Successfully"
+                });
+              })
+              .catch(function(e) {
+                console.log(e);
+              });
+          });
+        }

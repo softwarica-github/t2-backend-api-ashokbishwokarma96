@@ -7,8 +7,4 @@ const authentication = require('../authentication')
 route.route('/product')
 .get(productController.products)
 
-route.route('/addtocart')
-.get((req,res)=>res.send('PPP'))
-.post(authentication.verifyUser,cartController.cartProduct)
-
 module.exports= route;

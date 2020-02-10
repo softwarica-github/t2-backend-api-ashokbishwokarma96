@@ -17,19 +17,29 @@ const newProduct = new Product({
           productDescription: req.body.productDescription,
           productMadeDate: req.body.productMadeDate,
 })
-newProduct.save().then(res.send("Product added"))
+newProduct.save().then( res.status(201).send({
+  status: "Success",
+  message: "Product added successfully"
+}))
 .catch(err=>res.send(err))}
 
 exports.products = (req,res,next)=>{
           Product.find().then(product=>{
-                    res.send(product)
+      
+                    res.status(200).send(product)
+                
           }).catch(err=>res.send(err))
+}
+exports.product = (req,res,next)=>{
+  console.log(req.params.id)
+  Product.findById(req.params.id).then(product=>{
+            res.status(200).send(product)
+  }).catch(err=>res.send(err))
 }
 
 exports.update = (req, res, next) => {
           uid = req.params._id;
           console.log(uid)
-          //   console.log(uid);
 
           Product.update(
             { _id: uid },
@@ -63,8 +73,7 @@ exports.update = (req, res, next) => {
         }
       
         
-        exports.delete=(req, res,next) => {
-
+exports.delete=(req, res,next) => {
           Product.findById(req.params._id).then(user => {
 
                 user
