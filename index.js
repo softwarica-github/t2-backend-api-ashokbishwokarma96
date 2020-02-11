@@ -10,6 +10,7 @@ const products = require('./route/productRoute');
 const main = require('./route/mainRoute');
 const authentication = require('./authentication');
 const cart = require('./route/addToCartRoute');
+const order = require('./route/orderRoute');
 
 const app = express();
 
@@ -51,6 +52,7 @@ app.use("/products",products);
 // ,authentication.verifyUser,authentication.verifyAdmin
 
 app.use("/cart",cart);
+app.use("/order",order);
 
 app.listen(process.env.PORT,()=>{
           console.log("Server Running. "+ process.env.PORT);

@@ -10,6 +10,6 @@ route.route('/')
 
 route.get('/mycart',authentication.verifyUser,cartController.viewMyCart)
 
-route.delete('/:_id',authentication.verifyUser,cartController.deleteCart);
+route.delete('/:id',authentication.verifyUser,cartController.deleteCart);
 
 module.exports= route;

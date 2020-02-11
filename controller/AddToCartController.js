@@ -19,6 +19,7 @@ exports.viewCart = (req, res, next) => {
                     res.send({message:"cartProductnp",cartProduct})
           }).catch(err => res.send(err))
 }
+
 exports.viewMyCart = (req, res, next) => {
          
           AddToCart.find({userEmail: req.user.email}).then(cartProduct => {
@@ -28,9 +29,7 @@ exports.viewMyCart = (req, res, next) => {
 }
 
 exports.deleteCart=(req, res,next) => {
-          AddToCart.findById(req.params._id).then(cartProduct => {
-                cartProduct
-              .delete()
+          AddToCart.findByIdAndDelete(req.params.id)
               .then(function(result) {
                 res.status(201).json({
                   message: "Product Deleted Successfully"
@@ -39,5 +38,4 @@ exports.deleteCart=(req, res,next) => {
               .catch(function(e) {
                 console.log(e);
               });
-          });
         }
